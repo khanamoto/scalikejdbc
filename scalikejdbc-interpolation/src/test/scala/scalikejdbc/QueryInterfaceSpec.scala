@@ -131,8 +131,11 @@ class QueryInterfaceSpec
     }
   }
 
+  // NOTE: テストコードの良い参考例
   it should "be available with Query Interface" in {
+    // NOTE: 例外処理をいれる
     try {
+      // NOTE: テーブル削除＆作成でリセット
       DB autoCommit { implicit s =>
         try sql"drop table ${Order.table}".execute.apply()
         catch { case e: Exception => }
@@ -1068,6 +1071,7 @@ class QueryInterfaceSpec
         e.printStackTrace
         throw e
     } finally {
+      // NOTE: finally説でまとめてテストデータ削除
       DB localTx { implicit s =>
         try {
           sql"drop table ${Order.table}".execute.apply()
